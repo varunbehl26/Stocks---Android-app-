@@ -1,6 +1,5 @@
 package finance.varunbehl.yahoostocks.widget;
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
@@ -8,7 +7,6 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import finance.varunbehl.yahoostocks.R;
-import finance.varunbehl.yahoostocks.ui.MainActivity;
 
 /**
  * Created by varunbehl on 02/09/16.

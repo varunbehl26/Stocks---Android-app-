@@ -14,9 +14,7 @@ import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.GcmTaskService;
 import com.google.android.gms.gcm.TaskParams;
 
-import java.io.IOError;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,9 +22,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import finance.varunbehl.yahoostocks.adapter.Utils;
 import finance.varunbehl.yahoostocks.data.QuoteColumns;
-import finance.varunbehl.yahoostocks.data.QuoteHistoricalDataColumns;
 import finance.varunbehl.yahoostocks.data.QuoteProvider;
 import finance.varunbehl.yahoostocks.network.GetHistoricalData;
 import finance.varunbehl.yahoostocks.network.GetStock;
@@ -46,11 +42,11 @@ public class StockTaskService extends GcmTaskService {
     private Context context;
     private static String LOG_TAG = StockTaskService.class.getSimpleName();
     private final static String INIT_QUOTES = "\"YHOO\",\"AAPL\",\"GOOG\",\"MSFT\"";
-    public final static String TAG_PERIODIC = "periodic";
-    boolean isUpdate;
+    private final static String TAG_PERIODIC = "periodic";
+    private boolean isUpdate;
     private StringBuilder storedSymbols = new StringBuilder();
-    ContentResolver resolver;
-    static int firstTime = 0;
+    private ContentResolver resolver;
+    private static int firstTime = 0;
 
 
     public StockTaskService() {

@@ -35,8 +35,8 @@ import lecho.lib.hellocharts.view.LineChartView;
 public class DetailActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int CURSOR_LOADER_ID = 0;
     private static final int CURSOR_LOADER_ID_FOR_LINE_CHART = 1;
-    String symbolReceived;
-    Context context;
+    private String symbolReceived;
+    private Context context;
 
     @BindView(R.id.stock_symbol)
     TextView symbolView;
@@ -47,7 +47,7 @@ public class DetailActivityFragment extends Fragment implements LoaderManager.Lo
     @BindView(R.id.stock_name)
     TextView nameView;
 
-    LineChartView lineChartView;
+    private LineChartView lineChartView;
 
     public DetailActivityFragment() {
     }

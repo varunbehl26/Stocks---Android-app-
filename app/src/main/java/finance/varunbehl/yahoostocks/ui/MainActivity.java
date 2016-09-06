@@ -8,6 +8,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,13 +37,12 @@ import finance.varunbehl.yahoostocks.touch_helper.SimpleItemTouchHelperCallback;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     //Unique id for loader manager
     private static final int CURSOR_LOADER_ID = 0;
-    boolean isConnected;
-    Context context;
-    Intent serviceIntent;
-    QuoteCursorAdapter quoteCursorAdapter;
-    ItemTouchHelper itemTouchHelper;
-    private CharSequence mTitle;
-    Cursor cursor;
+    private boolean isConnected;
+    private Context context;
+    private Intent serviceIntent;
+    private QuoteCursorAdapter quoteCursorAdapter;
+    private ItemTouchHelper itemTouchHelper;
+    private Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +76,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 new RecyclerViewItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View v, int position) {
-                        //TODO:
-                        // do something on item click
                         Intent detailIntent = new Intent(context, DetailActivity.class);
                         cursor.moveToPosition(position);
                         detailIntent.putExtra(StockIntentService.EXTRA_SYMBOL, cursor.getString(cursor.getColumnIndex(QuoteColumns.SYMBOL)));
@@ -91,7 +89,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
-        mTitle = getTitle();
         if (isConnected) {
             long period = 3600L;
             long flex = 10L;
@@ -122,25 +119,26 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                             .inputType(InputType.TYPE_CLASS_TEXT)
                             .input(R.string.input_hint, R.string.input_prefill, new MaterialDialog.InputCallback() {
                                 @Override
-                                public void onInput(MaterialDialog dialog, CharSequence input) {
+                                public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
                                     // On FAB click, receive user input. Make sure the stock doesn't already exist
                                     // in the DB and proceed accordingly
                                     Cursor c = getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,
                                             new String[]{QuoteColumns.SYMBOL}, QuoteColumns.SYMBOL + "= ?",
                                             new String[]{input.toString()}, null);
+                                    assert c != null;
                                     if (c.getCount() != 0) {
                                         Toast toast =
-                                                Toast.makeText(MainActivity.this, "This stock is already saved!",
+                                                Toast.makeText(MainActivity.this, R.string.stockAlreadySaved,
                                                         Toast.LENGTH_LONG);
                                         toast.setGravity(Gravity.CENTER, Gravity.CENTER, 0);
                                         toast.show();
-                                        return;
                                     } else {
                                         // Add the stock to DB
                                         serviceIntent.putExtra("tag", "add");
                                         serviceIntent.putExtra("symbol", input.toString());
                                         startService(serviceIntent);
                                     }
+                                    c.close();
                                 }
                             })
                             .show();

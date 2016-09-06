@@ -7,7 +7,7 @@ import net.simonvt.schematic.annotation.Table;
  * Created by varunbehl on 30/08/16.
  */
 @Database(version = QuoteDatabase.VERSION)
-public class QuoteDatabase {
+class QuoteDatabase {
     private QuoteDatabase() {
     }
 

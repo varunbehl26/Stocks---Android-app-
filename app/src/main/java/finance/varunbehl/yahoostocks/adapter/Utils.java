@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import finance.varunbehl.yahoostocks.data.QuoteColumns;
 import finance.varunbehl.yahoostocks.data.QuoteProvider;
 
-public class Utils {
+class Utils {
 
     private static String LOG_TAG = Utils.class.getSimpleName();
 
@@ -48,12 +48,12 @@ public class Utils {
         return batchOperations;
     }
 
-    public static String truncateBidPrice(String bidPrice) {
+    private static String truncateBidPrice(String bidPrice) {
         bidPrice = String.format("%.2f", Float.parseFloat(bidPrice));
         return bidPrice;
     }
 
-    public static String truncateChange(String change, boolean isPercentChange) {
+    private static String truncateChange(String change, boolean isPercentChange) {
         String weight = change.substring(0, 1);
         String ampersand = "";
         if (isPercentChange) {
@@ -63,7 +63,7 @@ public class Utils {
         change = change.substring(1, change.length());
         double round = (double) Math.round(Double.parseDouble(change) * 100) / 100;
         change = String.format("%.2f", round);
-        StringBuffer changeBuffer = new StringBuffer(change);
+        StringBuilder changeBuffer = new StringBuilder(change);
         changeBuffer.insert(0, weight);
         changeBuffer.append(ampersand);
         change = changeBuffer.toString();

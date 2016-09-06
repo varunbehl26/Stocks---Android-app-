@@ -13,8 +13,6 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
-
 //        Passing intent from main activity to fragment as it cant be directly passed
         if (savedInstanceState == null) {
             Bundle arguments = new Bundle();

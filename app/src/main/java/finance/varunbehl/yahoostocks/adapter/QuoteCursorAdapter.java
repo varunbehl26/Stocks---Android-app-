@@ -22,13 +22,13 @@ import finance.varunbehl.yahoostocks.touch_helper.ItemTouchHelperViewHolder;
  */
 public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAdapter.ViewHolder> implements ItemTouchHelperAdapter {
 
-    private static Context context;
+    private  Context context;
     private static Typeface robotoLight;
 
 
     public QuoteCursorAdapter(Context context, Cursor cursor) {
         super(context, cursor);
-        QuoteCursorAdapter.context = context;
+        this.context = context;
     }
 
 

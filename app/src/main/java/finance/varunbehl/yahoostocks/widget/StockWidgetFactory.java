@@ -14,10 +14,10 @@ import finance.varunbehl.yahoostocks.data.QuoteProvider;
 /**
  * Created by varunbehl on 02/09/16.
  */
-public class StockWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
+class StockWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
     private Cursor cursor;
     private Context context;
-    int widgetId;
+    private int widgetId;
 
     public StockWidgetFactory(Context applicationContext, Intent intent) {
         context = applicationContext;
